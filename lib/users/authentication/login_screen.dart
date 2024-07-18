@@ -55,8 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             key: formkey,
                             child: Column(
                               children: [
-                                
-                                //email
+                                //E-mail
                                 TextFormField(
                                   controller: emailController,
                                   validator: (val) =>
@@ -99,12 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     filled: true,
                                   ),
                                 ),
-                      
+
                                 const SizedBox(
                                   height: 18,
                                 ),
-                      
-                                //password
+
+                                //Password
                                 Obx(
                                   () => TextFormField(
                                     controller: passwordController,
@@ -120,7 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       suffixIcon: Obx(
                                         () => GestureDetector(
                                           onTap: () {
-                                            isObsecure.value = !isObsecure.value;
+                                            isObsecure.value =
+                                                !isObsecure.value;
                                           },
                                           child: Icon(
                                             isObsecure.value
@@ -155,7 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           color: Colors.white60,
                                         ),
                                       ),
-                                      contentPadding: const EdgeInsets.symmetric(
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
                                         horizontal: 14,
                                         vertical: 6,
                                       ),
@@ -164,11 +165,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                      
+
                                 const SizedBox(
                                   height: 18,
                                 ),
-                      
+
                                 //Button Login
                                 Material(
                                   color: Colors.black,
@@ -181,8 +182,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         vertical: 10,
                                         horizontal: 28,
                                       ),
-                                      child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 16,
-                                      ),
+                                      child: Text(
+                                        "Login",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
