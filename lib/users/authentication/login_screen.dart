@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   //Login Screen Header
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 435,
                     child: Image.asset("images/login.screen.png"),
@@ -256,7 +256,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  
                 ],
               ),
             ),
