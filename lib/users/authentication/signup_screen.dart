@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_kopiflos/users/authentication/signup_screen.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   var formkey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var isObsecure = true.obs;
@@ -26,14 +26,14 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  //Login Screen Header
+                  //SignUp Screen Header
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 435,
-                    child: Image.asset("images/login.screen.png"),
+                    child: Image.asset("images/register.jpg"),
                   ),
 
-                  //Login Screen Header sign-in form
+                  //SignUp Screen Header sign-up form
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Container(
@@ -59,6 +59,55 @@ class _LoginScreenState extends State<LoginScreen> {
                               key: formkey,
                               child: Column(
                                 children: [
+                                  //Name
+                                  TextFormField(
+                                    controller: nameController,
+                                    validator: (val) =>
+                                        val == "" ? "Please write name" : null,
+                                    decoration: InputDecoration(
+                                      prefixIcon: const Icon(
+                                        Icons.person,
+                                        color: Colors.black,
+                                      ),
+                                      hintText: "name...",
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                          color: Colors.white60,
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                          color: Colors.white60,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                          color: Colors.white60,
+                                        ),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                          color: Colors.white60,
+                                        ),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        horizontal: 14,
+                                        vertical: 6,
+                                      ),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                    ),
+                                  ),
+
+                                  const SizedBox(
+                                    height: 18,
+                                  ),
+
                                   //E-mail
                                   TextFormField(
                                     controller: emailController,
@@ -192,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           horizontal: 28,
                                         ),
                                         child: Text(
-                                          "Login",
+                                          "SignUp",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
@@ -205,21 +254,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
 
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
 
-                            //dont have an account button - button
+                            //already have account button - button
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Don't have an Account?"),
+                                const Text("Already have an Account?"),
                                 TextButton(
-                                  onPressed: () {
-                                    Get.to(SignUpScreen());
-                                  },
+                                  onPressed: () {},
                                   child: const Text(
-                                    "SignUp Here",
+                                    "Login Here",
                                     style: TextStyle(
                                       color: Colors.purpleAccent,
                                       fontSize: 16,
