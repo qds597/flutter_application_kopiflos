@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_kopiflos/users/authentication/login_screen.dart';
 import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -54,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.fromLTRB(30, 30, 30, 8),
                         child: Column(
                           children: [
-                            //email-password-login button
+                            //name-email-password || signup button
                             Form(
                               key: formkey,
                               child: Column(
@@ -264,7 +265,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               children: [
                                 const Text("Already have an Account?"),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(LoginScreen());
+                                  },
                                   child: const Text(
                                     "Login Here",
                                     style: TextStyle(
