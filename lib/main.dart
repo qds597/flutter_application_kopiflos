@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: FutureBuilder(
         builder: (context, dataSnapShot) {
-          return LoginScreen();
+          return const LoginScreen();
         },
         future: null,
       ),

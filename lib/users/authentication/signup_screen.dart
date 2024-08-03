@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_kopiflos/api_connection/api_connection.dart';
 import 'package:flutter_application_kopiflos/users/authentication/login_screen.dart';
+import 'package:flutter_application_kopiflos/users/model/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -14,8 +20,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var passwordController = TextEditingController();
   var isObsecure = true.obs;
 
-  validateUserEmail() {
-    
+  validateUserEmail() async {
+    try {
+      var res = await http.post(
+        Uri.parse(API.validateEmail),
+        body: {
+          'user_email': emailController.text.trim(),
+        },
+      );
+
+      if (res.statusCode == 200) {
+        var resBodyOfValidateUserEmail = jsonDecode(res.body);
+        if (resBodyOfValidateUserEmail['emailFound'] == true) {
+          Fluttertoast.showToast(
+              msg: "Email is already in someone else use. Try another email.");
+        } else {
+          // register & save new user record to database
+          registerAndSaveUserRecord();
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
+  registerAndSaveUserRecord() async {
+    User userModel = User(
+      1,
+      nameController.text.trim(),
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
+
+    try {
+      var res = await http.post(
+        Uri.parse(API.signUp),
+        body: userModel.toJson(),
+      );
+
+      if (res.statusCode == 200) {
+        var resBodyOfSignUp = jsonDecode(res.body);
+        if (resBodyOfSignUp['success'] == true) {
+          Fluttertoast.showToast(msg: "SignUp Successfully.");
+
+          setState(() {
+            nameController.clear();
+            emailController.clear();
+            passwordController.clear();
+          });
+        } else {
+          Fluttertoast.showToast(msg: "Error, Please Try Again.");
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
+    }
   }
 
   @override
@@ -239,7 +300,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     borderRadius: BorderRadius.circular(30),
                                     child: InkWell(
                                       onTap: () {
-                                        if(formkey.currentState.validate()) {
+                                        if (formkey.currentState!.validate()) {
                                           //validate the email
                                           validateUserEmail();
                                         }
