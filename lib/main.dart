@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_kopiflos/users/authentication/login_screen.dart';
+import 'package:flutter_application_kopiflos/users/fragments/dashboard_of_fragments.dart';
+import 'package:flutter_application_kopiflos/users/userPreferences/user_preferences.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -21,10 +23,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: FutureBuilder(
+        future: RememberUserPrefs.readUserInfo(),
         builder: (context, dataSnapShot) {
-          return LoginScreen();
+          if (dataSnapShot.data == null) {
+            return LoginScreen();
+          } else {
+            return DashboardOfFragments();
+          }
         },
-        future: null,
       ),
     );
   }

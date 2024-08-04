@@ -8,16 +8,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class DashboardOfFragments extends StatelessWidget {
-  CurrentUser _rememberCurrentUser = Get.put(CurrentUser());
+  final CurrentUser _rememberCurrentUser = Get.put(CurrentUser());
 
-  List<Widget> _fragmentScreens = [
-    HomeFragmentScreen(),
-    FavoritesFragmentScreen(),
-    OrderFragmentScreen(),
-    ProfileFragmentScreen(),
+  final List<Widget> _fragmentScreens = [
+    const HomeFragmentScreen(),
+    const FavoritesFragmentScreen(),
+    const OrderFragmentScreen(),
+    const ProfileFragmentScreen(),
   ];
 
-  List _navigationButtonsProperties = [
+  final List _navigationButtonsProperties = [
     {
       "active_icon": Icons.home,
       "non_active_icon": Icons.home_outlined,
@@ -40,7 +40,9 @@ class DashboardOfFragments extends StatelessWidget {
     },
   ];
 
-  RxInt _indexNumber = 0.obs;
+  final RxInt _indexNumber = 0.obs;
+
+  DashboardOfFragments({super.key});
 
   @override
   Widget build(BuildContext context) {

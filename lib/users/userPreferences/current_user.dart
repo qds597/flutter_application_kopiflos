@@ -3,7 +3,7 @@ import 'package:flutter_application_kopiflos/users/userPreferences/user_preferen
 import 'package:get/get.dart';
 
 class CurrentUser extends GetxController {
-  Rx<User> _currentUser = User(0, '', '', '').obs;
+  final Rx<User> _currentUser = User(0, '', '', '').obs;
 
   User get user => _currentUser.value;
 
