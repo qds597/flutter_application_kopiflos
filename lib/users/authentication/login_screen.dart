@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_kopiflos/api_connection/api_connection.dart';
 import 'package:flutter_application_kopiflos/users/authentication/signup_screen.dart';
+import 'package:flutter_application_kopiflos/users/fragments/dashboard_of_fragments.dart';
 import 'package:flutter_application_kopiflos/users/model/user.dart';
+import 'package:flutter_application_kopiflos/users/userPreferences/user_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -22,25 +22,34 @@ class _LoginScreenState extends State<LoginScreen> {
   var isObsecure = true.obs;
 
   loginUserNow() async {
-    var res = await http.post(
-      Uri.parse(API.login),
-      body: {
-        "user_email": emailController.text.trim(),
-        "user_password": passwordController.text.trim(),
-      },
-    );
+    try {
+      var res = await http.post(
+        Uri.parse(API.login),
+        body: {
+          "user_email": emailController.text.trim(),
+          "user_password": passwordController.text.trim(),
+        },
+      );
 
-    if (res.statusCode == 200) {
-      var resBodyOfLogin = jsonDecode(res.body);
-      if (resBodyOfLogin['success'] == true) {
-        Fluttertoast.showToast(msg: "You Are Login Successfully.");
+      if (res.statusCode == 200) {
+        var resBodyOfLogin = jsonDecode(res.body);
+        if (resBodyOfLogin['success'] == true) {
+          Fluttertoast.showToast(msg: "You Are Login Successfully.");
 
-        User userInfo = User.fromJson(resBodyOfLogin["userData"]);
+          User userInfo = User.fromJson(resBodyOfLogin["userData"]);
 
-        //save userInfo to local Storage
-      } else {
-        Fluttertoast.showToast(msg: "Please Try Again.");
+          //save userInfo to local Storage
+          await RememberUserPrefs.storeUserInfo(userInfo);
+
+          Future.delayed(Duration(milliseconds: 2000), () {
+            Get.to(DashboardOfFragments());
+          });
+        } else {
+          Fluttertoast.showToast(msg: "Please Try Again.");
+        }
       }
+    } catch (errorMsg) {
+      print("Error :: " + errorMsg.toString());
     }
   }
 
@@ -216,7 +225,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(30),
                                     child: InkWell(
                                       onTap: () {
-                                        loginUserNow();
+                                        if (formkey.currentState!.validate()) {
+                                          loginUserNow();
+                                        }
                                       },
                                       borderRadius: BorderRadius.circular(30),
                                       child: const Padding(
