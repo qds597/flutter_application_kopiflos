@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -41,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //save userInfo to local Storage
           await RememberUserPrefs.storeUserInfo(userInfo);
 
-          Future.delayed(Duration(milliseconds: 2000), () {
+          Future.delayed(const Duration(milliseconds: 2000), () {
             Get.to(DashboardOfFragments());
           });
         } else {
@@ -49,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
     } catch (errorMsg) {
+      // ignore: avoid_print
       print("Error :: " + errorMsg.toString());
     }
   }
@@ -260,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const Text("Don't have an Account?"),
                                 TextButton(
                                   onPressed: () {
-                                    Get.to(SignUpScreen());
+                                    Get.to(const SignUpScreen());
                                   },
                                   child: const Text(
                                     "SignUp Here",

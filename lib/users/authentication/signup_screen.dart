@@ -42,6 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
       Fluttertoast.showToast(msg: e.toString());
     }
@@ -76,6 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
       Fluttertoast.showToast(msg: e.toString());
     }
